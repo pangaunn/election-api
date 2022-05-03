@@ -1,0 +1,35 @@
+type Candidate {
+    id: String!
+    name: String!
+    dob: String!
+    policy: String!
+    bioLink: String!
+    imageURL: String!
+    votedCount: Int!
+}
+
+type Query {
+    candidates: [Candidate!]!
+    candidate(id: String!): Candidate!
+}
+
+type Mutation {
+    vote(id: String!): Boolean! @validIDCard
+    open: Boolean!
+    close: Boolean!
+}
+
+type CandidateVoteUpdated {
+    id: String!
+    votedCount: Int!
+}
+
+type Subscription {
+    voteUpdated: CandidateVoteUpdated!
+}
+
+scalar Time
+
+# In order to use @validIDCard you have to supply Header Authorization:{IDCARD}
+# For example Authorization:1234567890123
+directive @validIDCard on FIELD_DEFINITION

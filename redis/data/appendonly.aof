@@ -1,0 +1,390 @@
+*2
+$6
+SELECT
+$1
+0
+*4
+$3
+set
+$3
+aaa
+$4
+aaaa
+$2
+NX
+*2
+$3
+del
+$3
+aaa
+*2
+$6
+SELECT
+$1
+0
+*3
+$3
+set
+$9
+e:current
+$1
+1
+*3
+$3
+set
+$16
+e:current:active
+$1
+1
+*2
+$3
+del
+$16
+e:current:active
+*2
+$3
+del
+$9
+e:current
+*4
+$3
+set
+$4
+test
+$4
+test
+$2
+NX
+*2
+$6
+SELECT
+$1
+0
+*2
+$3
+del
+$4
+test
+*2
+$6
+SELECT
+$1
+0
+*14
+$4
+hset
+$11
+candidate:1
+$2
+id
+$1
+1
+$4
+name
+$5
+Brown
+$3
+dob
+$10
+8th August
+$6
+policy
+$27
+Eating salmon & dating Cony
+$7
+bioLink
+$115
+https://line.fandom.com/wiki/Brown#:~:text=In%20the%20manga%20series%2C%20Brown,exact%20date%20of%20Father's%20Day.
+$8
+imageURL
+$81
+https://static.wikia.nocookie.net/line/images/b/bb/2015-brown.png/revision/latest
+*14
+$4
+hset
+$11
+candidate:2
+$2
+id
+$1
+2
+$4
+name
+$4
+Cony
+$3
+dob
+$10
+17th April
+$6
+policy
+$33
+Being kind and gentle to everyone
+$7
+bioLink
+$33
+https://line.fandom.com/wiki/Cony
+$8
+imageURL
+$80
+https://static.wikia.nocookie.net/line/images/1/10/2015-cony.png/revision/latest
+*2
+$3
+del
+$11
+candidate:1
+*4
+$3
+set
+$11
+candidate:1
+$290
+{
+        "id": "1",
+        "name": "Brown",
+        "dob": "8th August",
+        "policy": "Eating salmon & dating Cony",
+        "bioLink": "https://line.fandom.com/wiki/Brown",
+        "imageURL": "https://static.wikia.nocookie.net/line/images/b/bb/2015-brown.png/revision/latest"
+    }
+$2
+NX
+*2
+$3
+del
+$11
+candidate:2
+*4
+$3
+set
+$11
+candidate:2
+$293
+{
+        "id": "2",
+        "name": "Cony",
+        "dob": "17th April",
+        "policy": "Being kind and gentle to everyone",
+        "bioLink": "https://line.fandom.com/wiki/Cony",
+        "imageURL": "https://static.wikia.nocookie.net/line/images/1/10/2015-cony.png/revision/latest"
+    }
+$2
+NX
+*4
+$3
+set
+$11
+candidate:3
+$280
+ {
+        "id": "3",
+        "name": "Sally",
+        "dob": "27th April",
+        "policy": "Tag-along with Brow",
+        "bioLink": "https://line.fandom.com/wiki/Sally",
+        "imageURL": "https://static.wikia.nocookie.net/line/images/a/af/Image-1.jpg/revision/latest"
+    }
+$2
+NX
+*4
+$3
+set
+$11
+candidate:3
+$281
+ {
+        "id": "3",
+        "name": "Sally",
+        "dob": "27th April",
+        "policy": "Tag-along with Brown",
+        "bioLink": "https://line.fandom.com/wiki/Sally",
+        "imageURL": "https://static.wikia.nocookie.net/line/images/a/af/Image-1.jpg/revision/latest"
+    }
+$2
+XX
+*4
+$3
+set
+$11
+candidate:4
+$317
+{
+        "id": "4",
+        "name": "Choco",
+        "dob": "14th February",
+        "policy": "Dressing up in fashionable clothes and taking selfies",
+        "bioLink": "https://line.fandom.com/wiki/Choco",
+        "imageURL": "https://static.wikia.nocookie.net/line/images/4/4c/IMG_3360.JPG/revision/latest"
+    }
+$2
+NX
+*4
+$3
+set
+$11
+candidate:5
+$332
+{
+        "id": "5",
+        "name": "Moon",
+        "dob": "6th October",
+        "policy": "Sleeping, playing video games, being in a burger bar, joking & go crazy",
+        "bioLink": "https://line.fandom.com/wiki/Moon",
+        "imageURL": "https://static.wikia.nocookie.net/line/images/5/58/2015-moon.png/revision/latest"
+    }
+$2
+NX
+*4
+$3
+set
+$11
+candidate:6
+$286
+{
+        "id": "6",
+        "name": "Leonard",
+        "dob": "15th January",
+        "policy": "Singing in the rain",
+        "bioLink": "https://line.fandom.com/wiki/Leonard",
+        "imageURL": "https://static.wikia.nocookie.net/line/images/1/1d/2015-leonard.png/revision/latest"
+}
+$2
+NX
+*4
+$3
+set
+$11
+candidate:7
+$290
+{
+        "id": "7",
+        "name": "Leonard",
+        "dob": "15th January",
+        "policy": "Singing in the rain",
+        "bioLink": "https://line.fandom.com/wiki/Leonard",
+        "imageURL": "https://static.wikia.nocookie.net/line/images/1/1d/2015-leonard.png/revision/latest"
+    }
+$2
+NX
+*4
+$3
+set
+$11
+candidate:8
+$341
+{
+        "id": "8",
+        "name": "Pangyo",
+        "dob": "Chinese New Year",
+        "policy": "Making stuff using technologies, taking photographs, eat, sleep and play",
+        "bioLink": "https://line.fandom.com/wiki/Pangyo",
+        "imageURL": "https://static.wikia.nocookie.net/line/images/8/87/IMG_3361.JPG/revision/latest"
+    }
+$2
+NX
+*4
+$3
+set
+$11
+candidate:9
+$302
+{
+        "id": "9",
+        "name": "Boss",
+        "dob": "15th June",
+        "policy": "Let arrive home late",
+        "bioLink": "https://line.fandom.com/wiki/Boss",
+        "imageURL": "https://static.wikia.nocookie.net/line/images/f/fb/81372a8b249c461eb815ac11e1317c86.png/revision/latest"
+    }
+$2
+NX
+*4
+$3
+set
+$12
+candidate:10
+$332
+{
+        "id": "10",
+        "name": "James",
+        "dob": "14th February",
+        "policy": "Looking himself in the mirror, hang with girls, cooking & reading",
+        "bioLink": "https://line.fandom.com/wiki/James",
+        "imageURL": "https://static.wikia.nocookie.net/line/images/2/2f/2015-james.png/revision/latest"
+    }
+$2
+NX
+*3
+$3
+set
+$9
+e:current
+$1
+1
+*3
+$3
+set
+$16
+e:current:active
+$1
+1
+*5
+$3
+SET
+$24
+e:1-idcard:1169800083232
+$1
+1
+$4
+PXAT
+$13
+1651600176183
+*2
+$4
+incr
+$26
+e:1-candidate:5-votedcount
+*3
+$9
+PEXPIREAT
+$26
+e:1-candidate:5-votedcount
+$13
+1651600176192
+*2
+$3
+del
+$16
+e:current:active
+*2
+$4
+incr
+$9
+e:current
+*3
+$3
+set
+$16
+e:current:active
+$1
+2
+*2
+$3
+del
+$26
+e:1-candidate:5-votedcount
+*2
+$3
+del
+$24
+e:1-idcard:1169800083232
+*2
+$3
+del
+$16
+e:current:active
+*2
+$3
+del
+$9
+e:current

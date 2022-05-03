@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+
+  election-redis:
+    image: bitnami/redis:latest
+    ports: 
+      - 6379:6379
+    environment:
+      - ALLOW_EMPTY_PASSWORD=YES
+    volumes:
+      - ./redis/data:/bitnami/redis/data
+
+  election-api:
+    build:
+      context: .
+    depends_on:
+      - election-redis
+    ports:
+      - 3000:3000
+    environment:
+      - REDIS_HOST=election-redis:6379
+  
