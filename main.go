@@ -70,5 +70,5 @@ func main() {
 	http.Handle("/pg", playground.Handler("Election API", "/query"))
 	http.Handle("/query", graph.InjectIDCardToCtx(c.Handler(srv)))
 
-	log.Fatal(http.ListenAndServe(":3001", nil))
+	log.Fatal(http.ListenAndServe(":3000", nil))
 }
