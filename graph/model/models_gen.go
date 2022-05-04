@@ -8,8 +8,8 @@ type Candidate struct {
 	Dob        string `json:"dob"`
 	Policy     string `json:"policy"`
 	BioLink    string `json:"bioLink"`
-	VotedCount int    `json:"votedCount"`
 	ImageURL   string `json:"imageURL"`
+	VotedCount int    `json:"votedCount"`
 }
 
 type CandidateVoteUpdated struct {

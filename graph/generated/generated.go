@@ -311,19 +311,8 @@ var sources = []*ast.Source{
     dob: String!
     policy: String!
     bioLink: String!
-    votedCount: Int!
     imageURL: String!
-}
-
-type Query {
-    candidates: [Candidate!]!
-    candidate(id: String!): Candidate!
-}
-
-type Mutation {
-    vote(id: String!): Boolean! @validIDCard
-    open: Boolean!
-    close: Boolean!
+    votedCount: Int!
 }
 
 type CandidateVoteUpdated {
@@ -331,13 +320,45 @@ type CandidateVoteUpdated {
     votedCount: Int!
 }
 
+type Query {
+    """
+    Return all candidates.
+    """
+    candidates: [Candidate!]!
+    """
+    Return candidate with same id.
+    """
+    candidate(id: String!): Candidate!
+}
+
+type Mutation {
+    """
+    In order to call vote you have to provide Header Authorization:{IDCARD}
+
+    For example Authorization:1234567890123
+    """
+    vote(id: String!): Boolean! @validIDCard
+    """
+    Open election.
+    """
+    open: Boolean!
+    """
+    Close election.
+    """
+    close: Boolean!
+}
+
 type Subscription {
+    """
+    Return CandidateVoteUpdated when someone call vote mutation.
+    """
     voteUpdated: CandidateVoteUpdated!
 }
 
-scalar Time
 
-directive @validIDCard on FIELD_DEFINITION`, BuiltIn: false},
+directive @validIDCard on FIELD_DEFINITION
+
+scalar Time`, BuiltIn: false},
 }
 var parsedSchema = gqlparser.MustLoadSchema(sources...)
 
@@ -648,50 +669,6 @@ func (ec *executionContext) fieldContext_Candidate_bioLink(ctx context.Context, 
 	return fc, nil
 }
 
-func (ec *executionContext) _Candidate_votedCount(ctx context.Context, field graphql.CollectedField, obj *model.Candidate) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Candidate_votedCount(ctx, field)
-	if err != nil {
-		return graphql.Null
-	}
-	ctx = graphql.WithFieldContext(ctx, fc)
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.VotedCount, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(int)
-	fc.Result = res
-	return ec.marshalNInt2int(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) fieldContext_Candidate_votedCount(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
-	fc = &graphql.FieldContext{
-		Object:     "Candidate",
-		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
-		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type Int does not have child fields")
-		},
-	}
-	return fc, nil
-}
-
 func (ec *executionContext) _Candidate_imageURL(ctx context.Context, field graphql.CollectedField, obj *model.Candidate) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Candidate_imageURL(ctx, field)
 	if err != nil {
@@ -731,6 +708,50 @@ func (ec *executionContext) fieldContext_Candidate_imageURL(ctx context.Context,
 		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Candidate_votedCount(ctx context.Context, field graphql.CollectedField, obj *model.Candidate) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Candidate_votedCount(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.VotedCount, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(int)
+	fc.Result = res
+	return ec.marshalNInt2int(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Candidate_votedCount(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Candidate",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Int does not have child fields")
 		},
 	}
 	return fc, nil
@@ -1036,10 +1057,10 @@ func (ec *executionContext) fieldContext_Query_candidates(ctx context.Context, f
 				return ec.fieldContext_Candidate_policy(ctx, field)
 			case "bioLink":
 				return ec.fieldContext_Candidate_bioLink(ctx, field)
-			case "votedCount":
-				return ec.fieldContext_Candidate_votedCount(ctx, field)
 			case "imageURL":
 				return ec.fieldContext_Candidate_imageURL(ctx, field)
+			case "votedCount":
+				return ec.fieldContext_Candidate_votedCount(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Candidate", field.Name)
 		},
@@ -1096,10 +1117,10 @@ func (ec *executionContext) fieldContext_Query_candidate(ctx context.Context, fi
 				return ec.fieldContext_Candidate_policy(ctx, field)
 			case "bioLink":
 				return ec.fieldContext_Candidate_bioLink(ctx, field)
-			case "votedCount":
-				return ec.fieldContext_Candidate_votedCount(ctx, field)
 			case "imageURL":
 				return ec.fieldContext_Candidate_imageURL(ctx, field)
+			case "votedCount":
+				return ec.fieldContext_Candidate_votedCount(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Candidate", field.Name)
 		},
@@ -3133,16 +3154,16 @@ func (ec *executionContext) _Candidate(ctx context.Context, sel ast.SelectionSet
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "votedCount":
+		case "imageURL":
 
-			out.Values[i] = ec._Candidate_votedCount(ctx, field, obj)
+			out.Values[i] = ec._Candidate_imageURL(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "imageURL":
+		case "votedCount":
 
-			out.Values[i] = ec._Candidate_imageURL(ctx, field, obj)
+			out.Values[i] = ec._Candidate_votedCount(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
 				invalids++

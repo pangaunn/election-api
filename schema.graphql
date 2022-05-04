@@ -8,28 +8,47 @@ type Candidate {
     votedCount: Int!
 }
 
-type Query {
-    candidates: [Candidate!]!
-    candidate(id: String!): Candidate!
-}
-
-type Mutation {
-    vote(id: String!): Boolean! @validIDCard
-    open: Boolean!
-    close: Boolean!
-}
-
 type CandidateVoteUpdated {
     id: String!
     votedCount: Int!
 }
 
+type Query {
+    """
+    Return all candidates.
+    """
+    candidates: [Candidate!]!
+    """
+    Return candidate with same id.
+    """
+    candidate(id: String!): Candidate!
+}
+
+type Mutation {
+    """
+    In order to call vote you have to provide Header Authorization:{IDCARD}
+
+    For example Authorization:1234567890123
+    """
+    vote(id: String!): Boolean! @validIDCard
+    """
+    Open election.
+    """
+    open: Boolean!
+    """
+    Close election.
+    """
+    close: Boolean!
+}
+
 type Subscription {
+    """
+    Return CandidateVoteUpdated when someone call vote mutation.
+    """
     voteUpdated: CandidateVoteUpdated!
 }
 
-scalar Time
 
-# In order to use @validIDCard you have to supply Header Authorization:{IDCARD}
-# For example Authorization:1234567890123
 directive @validIDCard on FIELD_DEFINITION
+
+scalar Time
