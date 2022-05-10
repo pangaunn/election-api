@@ -41,10 +41,7 @@ func main() {
 		panic(err)
 	}
 
-	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"*"},
-		AllowCredentials: true,
-	})
+	c := cors.AllowAll()
 
 	gqlConfig := generated.Config{
 		Resolvers: &graph.Resolver{
@@ -70,5 +67,5 @@ func main() {
 	http.Handle("/pg", playground.Handler("Election API", "/query"))
 	http.Handle("/query", graph.InjectIDCardToCtx(c.Handler(srv)))
 
-	log.Fatal(http.ListenAndServe(":3000", nil))
+	log.Fatal(http.ListenAndServe(":3001", nil))
 }
